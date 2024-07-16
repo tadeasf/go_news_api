@@ -30,8 +30,13 @@ import (
 // @title News API
 // @version 1.0
 // @description A simple news API using Gin and external news services
+// @host news.tadeasfort.com
+// @BasePath /api/v1
+// @schemes https
+
 // @host localhost:8823
 // @BasePath /api/v1
+// @schemes http
 func main() {
 	// gin.SetMode(gin.ReleaseMode)
 	if os.Getenv("GIN_MODE") != "release" {
