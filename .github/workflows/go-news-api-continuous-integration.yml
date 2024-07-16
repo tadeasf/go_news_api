@@ -92,7 +92,7 @@ jobs:
           retry_count=0
           while [ $retry_count -lt $max_retries ]; do
             echo "Attempting to reach health endpoint (Attempt $((retry_count + 1)) of $max_retries)"
-            response=$(curl -s -o /dev/null -w "%{http_code}" https://news.tadeasfort.cz/health)
+            response=$(curl -s -o /dev/null -w "%{http_code}" https://news.tadeasfort.cz/api/v1/health)
             echo "Received status code: $response"
             if [ $response -eq 200 ]; then
               echo "Health check passed with status code $response"
