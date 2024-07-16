@@ -13,6 +13,10 @@ A robust and scalable news aggregation API built with Go, leveraging multiple ne
 
 * 🔧 (workflows): add GitHub Actions workflows for build, release, and changelog generation. PR [#17](https://github.com/tadeasf/go_news_api/pull/17) by [@tadeasf](https://github.com/tadeasf).
 
+#### Features
+
+* ✨ (endpoints): add endpoint to fetch news by keyword with pagination support. PR [#19](https://github.com/tadeasf/go_news_api/pull/19) by [@tadeasf](https://github.com/tadeasf).
+
 #### Fixes
 
 * Fix-todo-to-issue-again. PR [#9](https://github.com/tadeasf/go_news_api/pull/9) by [@tadeasf](https://github.com/tadeasf).
