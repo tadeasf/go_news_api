@@ -1,8 +1,5 @@
 package main
 
-// TODO: add endpoints for fetching news by keyword
-// labels: endpoint, feature, enhancement
-
 // TODO: add endpoints for fetching news by search query
 // labels: endpoint, feature, enhancement
 
@@ -80,6 +77,7 @@ func main() {
 		v1.GET("/top-headlines", getTopHeadlines)
 		v1.GET("/trending-topics", getTrendingTopicsNews)
 		v1.GET("/fetch-trending-categories", fetchTrendingCategories)
+		v1.GET("/news-by-keyword", getNewsByKeyword)
 	}
 
 	// Modify the Swagger documentation route
@@ -342,4 +340,17 @@ func fetchTrendingCategories(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, trendingTopics)
+}
+
+// @Summary Get news by keyword
+// @Description Get news articles for a specific keyword from News API and GNews
+// @Produce json
+// @Param source query string false "Source of news (newsapi or gnews)"
+// @Param keyword query string true "Keyword to search for"
+// @Success 200 {object} utils.SwaggerAPIResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /news-by-keyword [get]
+func getNewsByKeyword(c *gin.Context) {
+	endpoints.GetNewsByKeyword(c)
 }

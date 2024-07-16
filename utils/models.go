@@ -16,6 +16,8 @@ type APIResponse struct {
 	APISource     string    `json:"api_source"` // "gnews" or "newsapi"
 	Type          string    `json:"type"`       // "category" or "topic"
 	Topic         string    `json:"topic,omitempty"`
+	Page          int       `json:"page,omitempty"`
+	PerPage       int       `json:"per_page,omitempty"`
 }
 type Article struct {
 	gorm.Model
@@ -114,4 +116,6 @@ type SwaggerAPIResponse struct {
 	TotalArticles int       `json:"totalArticles"`
 	Articles      []Article `json:"articles"`
 	APISource     string    `json:"apiSource"`
+	Page          int       `json:"page,omitempty"`
+	PerPage       int       `json:"per_page,omitempty"`
 }
