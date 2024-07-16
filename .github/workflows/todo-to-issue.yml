@@ -24,7 +24,7 @@ jobs:
           MANUAL_BASE_REF: ${{ github.event.inputs.MANUAL_BASE_REF }}
         with:
           AUTO_ASSIGN: true
-          LANGUAGES: |
+          LANGUAGES: >
             [
               {
                 "language": "Go",
@@ -37,8 +37,8 @@ jobs:
                   {
                     "type": "block",
                     "pattern": {
-                      "start": "/\\*",
-                      "end": "\\*/"
+                      "start": "/\\\\*",
+                      "end": "\\\\*/"
                     }
                   }
                 ]
