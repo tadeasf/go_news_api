@@ -17,8 +17,6 @@ jobs:
       
       - name: Run build script
         run: |
-          rm -rf dist
-          mkdir dist
           chmod +x ./build.sh
           ./build.sh
       
@@ -33,19 +31,16 @@ jobs:
             cd /root/go_news_api
             git pull origin main
             sudo systemctl stop go_news_api.service
-            rm -rf dist
-            mkdir dist
       
-      - name: Copy dist folder to VPS
+      - name: Copy binary to VPS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          source: "dist/*"
+          source: "dist/go_news_api"
           target: "/root/go_news_api"
-          strip_components: 1
       
       - name: Start service
         uses: appleboy/ssh-action@v1.0.3
@@ -57,6 +52,7 @@ jobs:
           script: |
             cd /root/go_news_api
             sudo systemctl start go_news_api.service
+
 
 
   check-service:
@@ -95,17 +91,22 @@ jobs:
           max_retries=5
           retry_count=0
           while [ $retry_count -lt $max_retries ]; do
+            echo "Attempting to reach health endpoint (Attempt $((retry_count + 1)) of $max_retries)"
             response=$(curl -s -o /dev/null -w "%{http_code}" https://news.tadeasfort.cz/health)
+            echo "Received status code: $response"
             if [ $response -eq 200 ]; then
               echo "Health check passed with status code $response"
               exit 0
             else
               echo "Health check failed with status code $response. Attempt $((retry_count + 1)) of $max_retries."
+              echo "Waiting 30 seconds before next attempt..."
               sleep 30
               retry_count=$((retry_count + 1))
             fi
           done
           echo "Health check failed after $max_retries attempts. Last status code: $response"
+          echo "Curl verbose output:"
+          curl -v https://news.tadeasfort.cz/health
           exit 1
       
 
