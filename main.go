@@ -56,6 +56,11 @@ func main() {
 
 	r := gin.Default()
 
+	// Add this new route handler for the root path
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/docs/index.html")
+	})
+
 	// API v1 group
 	v1 := r.Group("/api/v1")
 	{
@@ -68,14 +73,8 @@ func main() {
 		v1.GET("/fetch-trending-categories", fetchTrendingCategories)
 	}
 
-	// Swagger documentation
-	r.GET("/docs/*any", func(c *gin.Context) {
-		if c.Param("any") == "index.html" {
-			c.Redirect(http.StatusMovedPermanently, "/")
-		} else {
-			ginSwagger.WrapHandler(swaggerFiles.Handler)(c)
-		}
-	})
+	// Modify the Swagger documentation route
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Set Gin mode and port based on GIN_MODE
 	ginMode := os.Getenv("GIN_MODE")
