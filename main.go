@@ -1,5 +1,14 @@
 package main
 
+// TODO: add endpoints for fetching news by keyword
+// TODO: add endpoints for fetching news by search query
+// TODO: add endpoints for fetching news by trending topics
+// TODO: add endpoints for fetching news by trending categories
+
+// TODO: add schedulling via background cronjob or something like that to continuously pull new articles
+
+// TODO: sentiment analysis, topics and keywords extraction
+
 import (
 	"fmt"
 	"log"
