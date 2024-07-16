@@ -1,0 +1,272 @@
+basePath: /api/v1
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  utils.Article:
+    properties:
+      apiresponseID:
+        type: integer
+      author:
+        type: string
+      content:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      description:
+        type: string
+      id:
+        type: integer
+      keywords:
+        items:
+          $ref: '#/definitions/utils.Keyword'
+        type: array
+      language:
+        type: string
+      publishedAt:
+        type: string
+      source:
+        $ref: '#/definitions/utils.Source'
+      sourceID:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+      url:
+        type: string
+      urlToImage:
+        type: string
+    type: object
+  utils.Keyword:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      updatedAt:
+        type: string
+      word:
+        type: string
+    type: object
+  utils.Source:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        description: Use interface{} to accept both string and int
+      name:
+        type: string
+      updatedAt:
+        type: string
+      url:
+        type: string
+    type: object
+  utils.SwaggerAPIResponse:
+    properties:
+      apiSource:
+        type: string
+      articles:
+        items:
+          $ref: '#/definitions/utils.Article'
+        type: array
+      status:
+        type: string
+      totalArticles:
+        type: integer
+      totalResults:
+        type: integer
+    type: object
+  utils.TrendingTopic:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      growth_value:
+        type: number
+      id:
+        type: integer
+      search_growth:
+        type: string
+      topic:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: A simple news API using Gin and external news services
+  title: News API
+  version: "1.0"
+paths:
+  /fetch-trending-categories:
+    get:
+      description: Fetch top 10 trending categories from Exploding Topics
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/utils.TrendingTopic'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Fetch trending categories
+  /health:
+    get:
+      description: Check if the API is up and running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Health check
+  /init-db:
+    post:
+      description: Create tables in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Initialize database
+  /migrate:
+    get:
+      description: Run database migrations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Migrate database
+  /test-postgresql:
+    get:
+      description: Test if the connection to PostgreSQL is working
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Test PostgreSQL connection
+  /top-headlines:
+    get:
+      description: Get top headlines from News API and GNews
+      parameters:
+      - description: Source of news (newsapi or gnews)
+        in: query
+        name: source
+        type: string
+      - description: Country code for headlines
+        in: query
+        name: country
+        type: string
+      - description: Category of news
+        in: query
+        name: category
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SwaggerAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get top headlines
+  /trending-topics:
+    get:
+      description: Get news articles for trending topics from News API and GNews
+      parameters:
+      - description: Source of news (newsapi or gnews)
+        in: query
+        name: source
+        type: string
+      - description: Number of random topics to pick (1-10, default 1)
+        in: query
+        name: topics
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SwaggerAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get trending topics news
+swagger: "2.0"

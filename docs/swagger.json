@@ -1,0 +1,415 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A simple news API using Gin and external news services",
+        "title": "News API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/fetch-trending-categories": {
+            "get": {
+                "description": "Fetch top 10 trending categories from Exploding Topics",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Fetch trending categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/utils.TrendingTopic"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "description": "Check if the API is up and running",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Health check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/init-db": {
+            "post": {
+                "description": "Create tables in the database",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Initialize database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/migrate": {
+            "get": {
+                "description": "Run database migrations",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Migrate database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/test-postgresql": {
+            "get": {
+                "description": "Test if the connection to PostgreSQL is working",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Test PostgreSQL connection",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/top-headlines": {
+            "get": {
+                "description": "Get top headlines from News API and GNews",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get top headlines",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Source of news (newsapi or gnews)",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Country code for headlines",
+                        "name": "country",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Category of news",
+                        "name": "category",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.SwaggerAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trending-topics": {
+            "get": {
+                "description": "Get news articles for trending topics from News API and GNews",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get trending topics news",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Source of news (newsapi or gnews)",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of random topics to pick (1-10, default 1)",
+                        "name": "topics",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.SwaggerAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "utils.Article": {
+            "type": "object",
+            "properties": {
+                "apiresponseID": {
+                    "type": "integer"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "keywords": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/utils.Keyword"
+                    }
+                },
+                "language": {
+                    "type": "string"
+                },
+                "publishedAt": {
+                    "type": "string"
+                },
+                "source": {
+                    "$ref": "#/definitions/utils.Source"
+                },
+                "sourceID": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "urlToImage": {
+                    "type": "string"
+                }
+            }
+        },
+        "utils.Keyword": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "word": {
+                    "type": "string"
+                }
+            }
+        },
+        "utils.Source": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "description": "Use interface{} to accept both string and int"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "utils.SwaggerAPIResponse": {
+            "type": "object",
+            "properties": {
+                "apiSource": {
+                    "type": "string"
+                },
+                "articles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/utils.Article"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                },
+                "totalArticles": {
+                    "type": "integer"
+                },
+                "totalResults": {
+                    "type": "integer"
+                }
+            }
+        },
+        "utils.TrendingTopic": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "growth_value": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "search_growth": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
