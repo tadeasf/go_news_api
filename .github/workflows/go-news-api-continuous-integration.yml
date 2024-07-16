@@ -21,7 +21,7 @@ jobs:
           mkdir dist
           chmod +x ./build.sh
           ./build.sh
-      
+    
       - name: Deploy and Restart Service
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -33,6 +33,10 @@ jobs:
             cd /root/go_news_api
             git pull origin main
             sudo systemctl stop go_news_api.service
+            rm -rf dist
+            mkdir dist
+            chmod +x ./build.sh
+            ./build.sh
             scp -r ${{ github.workspace }}/dist/* .
             sudo systemctl start go_news_api.service
 

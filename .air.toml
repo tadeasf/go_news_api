@@ -12,8 +12,8 @@ tmp_dir = "dist"
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
   follow_symlink = false
-  # full_bin = "GIN_MODE=release ./dist/go_news_api"
-  full_bin = "GIN_MODE=debug ./dist/go_news_api"
+  full_bin = "GIN_MODE=release ./dist/go_news_api"
+  # full_bin = "GIN_MODE=debug ./dist/go_news_api"
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
   include_file = []
