@@ -1,0 +1,33 @@
+name: automerge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.3"
+        env:
+          GITHUB_TOKEN: "${{ secrets.PAT }}"
+          LOG: "DEBUG"
+          MERGE_LABELS: "automerge"
+          MERGE_REMOVE_LABELS: ""
+          MERGE_METHOD: "merge"
+          MERGE_REQUIRED_APPROVALS: "0"
+          MERGE_DELETE_BRANCH: "false"
+          MERGE_COMMIT_MESSAGE: "automatic"
+          MERGE_FORKS: "true"
+          MERGE_RETRIES: "1"
+          MERGE_RETRY_SLEEP: "5000"
+          UPDATE_LABELS: "automerge"
+          UPDATE_METHOD: "merge"

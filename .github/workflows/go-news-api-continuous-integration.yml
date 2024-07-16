@@ -1,0 +1,82 @@
+name: go-news-api-continuous-integration
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-restart-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.25'
+      
+      - name: Run build script
+        run: |
+          rm -rf dist
+          mkdir dist
+          chmod +x ./build.sh
+          ./build.sh
+      
+      - name: Deploy and Restart Service
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd /root/go_news_api
+            git pull origin main
+            sudo systemctl stop go_news_api.service
+            scp -r ${{ github.workspace }}/dist/* .
+            sudo systemctl start go_news_api.service
+
+  check-service:
+    runs-on: ubuntu-latest
+    needs: build-and-restart-service
+    steps:
+      - name: Check service status
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            check_service_status() {
+              sudo systemctl is-active --quiet go_news_api.service
+              return $?
+            }
+            if ! check_service_status; then
+              echo "Service is not active. Waiting for 10 seconds before retrying..."
+              sleep 10
+              if ! check_service_status; then
+                echo "Service is still not active after retry. Failing the workflow."
+                exit 1
+              fi
+            fi
+            echo "Service is active."
+
+  check-endpoints:
+    runs-on: ubuntu-latest
+    needs: check-service
+    steps:
+      - name: Check /health endpoint
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://news.tadeasfort.cz/health)
+          if [ $response -ne 200 ]; then
+            echo "Health check failed with status code $response"
+            exit 1
+          fi
+          echo "Health check passed with status code $response"
+      
+
+  finish-workflow:
+    runs-on: ubuntu-latest
+    needs: check-endpoints
+    steps:
+      - name: Finish workflow
+        run: echo "Deployment and tests completed successfully"
