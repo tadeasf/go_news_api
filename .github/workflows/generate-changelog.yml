@@ -8,12 +8,16 @@ on:
 jobs:
   generate_changelog:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Generate Changelog
       uses: heinrichreimer/action-github-changelog-generator@v2.4
       with:
-        token: ${{ secrets.PAT }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         output: CHANGELOG.md
         issues: true
         issuesWoLabels: true
