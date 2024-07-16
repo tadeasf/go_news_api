@@ -21,7 +21,7 @@ import (
 // @title News API
 // @version 1.0
 // @description A simple news API using Gin and external news services
-// @host localhost:8080
+// @host localhost:8823
 // @BasePath /api/v1
 func main() {
 	// gin.SetMode(gin.ReleaseMode)
@@ -60,7 +60,7 @@ func main() {
 	// Swagger documentation
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	if err := r.Run(":8080"); err != nil {
+	if err := r.Run(":8823"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 }

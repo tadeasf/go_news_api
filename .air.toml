@@ -1,13 +1,13 @@
 root = "."
 testdata_dir = "testdata"
-tmp_dir = "tmp"
+tmp_dir = "dist"
 
 [build]
   args_bin = []
-  bin = "./tmp/main"
-  cmd = "go build -o ./tmp/main ."
+  bin = "./dist/go_news_api"
+  cmd = "go build -o ./dist/go_news_api -ldflags='-w -s' ."
   delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  exclude_dir = ["assets", "dist", "vendor", "testdata"]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
@@ -21,7 +21,7 @@ tmp_dir = "tmp"
   poll = false
   poll_interval = 0
   post_cmd = []
-  pre_cmd = ["export GIN_MODE=release"]
+  pre_cmd = ["export GIN_MODE=release", "go mod tidy"]
   rerun = false
   rerun_delay = 500
   send_interrupt = false
