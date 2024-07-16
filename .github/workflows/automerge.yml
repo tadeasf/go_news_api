@@ -24,7 +24,7 @@ jobs:
           MERGE_REMOVE_LABELS: ""
           MERGE_METHOD: "merge"
           MERGE_REQUIRED_APPROVALS: "0"
-          MERGE_DELETE_BRANCH: "false"
+          MERGE_DELETE_BRANCH: "true"
           MERGE_COMMIT_MESSAGE: "automatic"
           MERGE_FORKS: "true"
           MERGE_RETRIES: "1"
