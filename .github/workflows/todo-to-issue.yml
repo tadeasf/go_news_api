@@ -24,3 +24,8 @@ jobs:
           MANUAL_BASE_REF: ${{ github.event.inputs.MANUAL_BASE_REF }}
         with:
           PROJECTS_SECRET: ${{ secrets.PAT }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABEL: "todo"
+          COMMENT_MARKER: "//"
+          CLOSE_ISSUES: true
+          AUTO_P: true
