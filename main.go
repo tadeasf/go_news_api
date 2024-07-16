@@ -38,10 +38,6 @@ import (
 // @BasePath /api/v1
 // @schemes http
 func main() {
-	// gin.SetMode(gin.ReleaseMode)
-	if os.Getenv("GIN_MODE") != "release" {
-		gin.SetMode(gin.ReleaseMode)
-	}
 
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
@@ -71,10 +67,30 @@ func main() {
 		v1.GET("/trending-topics", getTrendingTopicsNews)
 		v1.GET("/fetch-trending-categories", fetchTrendingCategories)
 	}
-	// Swagger documentation
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	if err := r.Run(":8823"); err != nil {
+	// Swagger documentation
+	r.GET("/docs/*any", func(c *gin.Context) {
+		if c.Param("any") == "index.html" {
+			c.Redirect(http.StatusMovedPermanently, "/")
+		} else {
+			ginSwagger.WrapHandler(swaggerFiles.Handler)(c)
+		}
+	})
+
+	// Set Gin mode and port based on GIN_MODE
+	ginMode := os.Getenv("GIN_MODE")
+	port := ":8824"
+
+	if ginMode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+		port = ":8823"
+	} else {
+		gin.SetMode(gin.DebugMode)
+	}
+
+	log.Printf("Running in %s mode on port %s", ginMode, port)
+
+	if err := r.Run(port); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 }
