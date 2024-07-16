@@ -21,6 +21,11 @@ jobs:
       pull-requests: read
     steps:
       - uses: actions/checkout@v4
+      - name: Create Latest Changes section if not exists
+        run: |
+          if ! grep -q "### Latest Changes" README.md; then
+            echo -e "\n### Latest Changes\n" >> README.md
+          fi
       - uses: docker://tiangolo/latest-changes:0.2.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
