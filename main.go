@@ -36,7 +36,7 @@ import (
 // @title News API
 // @version 1.0
 // @description A simple news API using Gin and external news services
-// @host news.tadeasfort.com
+// @host news.tadeasfort.cz
 // @BasePath /api/v1
 // @schemes https
 func main() {

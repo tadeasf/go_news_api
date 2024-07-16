@@ -9,7 +9,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "news.tadeasfort.com",
+    "host": "news.tadeasfort.cz",
     "basePath": "/api/v1",
     "paths": {
         "/fetch-trending-categories": {

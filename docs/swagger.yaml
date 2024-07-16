@@ -109,7 +109,7 @@ definitions:
       updatedAt:
         type: string
     type: object
-host: news.tadeasfort.com
+host: news.tadeasfort.cz
 info:
   contact: {}
   description: A simple news API using Gin and external news services
