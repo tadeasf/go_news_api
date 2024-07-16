@@ -39,10 +39,6 @@ import (
 // @host news.tadeasfort.com
 // @BasePath /api/v1
 // @schemes https
-
-// @host localhost:8824
-// @BasePath /api/v1
-// @schemes http https
 func main() {
 
 	// Load .env file
