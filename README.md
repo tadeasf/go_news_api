@@ -8,6 +8,7 @@ A robust and scalable news aggregation API built with Go, leveraging multiple ne
 
 #### Fixes
 
+* Fix-todo-to-issue-again. PR [#9](https://github.com/tadeasf/go_news_api/pull/9) by [@tadeasf](https://github.com/tadeasf).
 * 🔧 (todo-to-issue.yml): remove language-specific configuration for Go. PR [#8](https://github.com/tadeasf/go_news_api/pull/8) by [@tadeasf](https://github.com/tadeasf).
 * 🔧 (todo-to-issue.yml): fix escape sequences in language block comment patterns. PR [#7](https://github.com/tadeasf/go_news_api/pull/7) by [@tadeasf](https://github.com/tadeasf).
 * 🔧 (latest-changes.yml): ensure "Latest Changes" section exists in README. PR [#6](https://github.com/tadeasf/go_news_api/pull/6) by [@tadeasf](https://github.com/tadeasf).
