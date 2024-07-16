@@ -23,4 +23,4 @@ jobs:
           MANUAL_COMMIT_REF: ${{ github.event.inputs.MANUAL_COMMIT_REF }}
           MANUAL_BASE_REF: ${{ github.event.inputs.MANUAL_BASE_REF }}
         with:
-          AUTO_ASSIGN: true
+          PROJECTS_SECRET: ${{ secrets.PAT }}
