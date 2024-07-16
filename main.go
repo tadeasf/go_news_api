@@ -1,23 +1,5 @@
 package main
 
-// TODO: add endpoints for fetching news by keyword
-// labels: endpoint, feature, enhancement
-
-// TODO: add endpoints for fetching news by search query
-// labels: endpoint, feature, enhancement
-
-// TODO: add endpoints for fetching news by trending topics
-// labels: endpoint, feature, enhancement
-
-// TODO: add endpoints for fetching news by trending categories
-// labels: endpoint, feature, enhancement
-
-// TODO: add scheduling via background cronjob or something like that to continuously pull new articles
-// labels: enhancement, feature
-
-// TODO: sentiment analysis, topics and keywords extraction, and other NLP features
-// labels: feature, enhancement
-
 import (
 	"fmt"
 	"log"
