@@ -325,3 +325,27 @@ func fetchTrendingCategories(c *gin.Context) {
 
 	c.JSON(http.StatusOK, trendingTopics)
 }
+
+// TODO: add endpoints for fetching news by keyword
+// assignees: tadeasf
+// labels: endpoint, feature, enhancement
+
+// TODO: add endpoints for fetching news by search query
+// assignees: tadeasf
+// labels: endpoint, feature, enhancement
+
+// TODO: add endpoints for fetching news by trending topics
+// assignees: tadeasf
+// labels: endpoint, feature, enhancement
+
+// TODO: add endpoints for fetching news by trending categories
+// assignees: tadeasf
+// labels: endpoint, feature, enhancement
+
+// TODO: add scheduling via background cronjob or something like that to continuously pull new articles
+// assignees: tadeasf
+// labels: enhancement, feature
+
+// TODO: sentiment analysis, topics and keywords extraction
+// assignees: tadeasf
+// labels: feature, enhancement
