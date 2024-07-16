@@ -4,7 +4,6 @@ on:
   pull_request_target:
     branches:
       - main
-
     types:
       - closed
 
@@ -17,6 +16,9 @@ on:
 jobs:
   latest-changes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
     steps:
       - uses: actions/checkout@v4
       - uses: docker://tiangolo/latest-changes:0.2.1
