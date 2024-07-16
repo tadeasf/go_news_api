@@ -69,12 +69,21 @@ jobs:
     steps:
       - name: Check /health endpoint
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" https://news.tadeasfort.cz/health
-          if [ $response -ne 200 ]; then
-            echo "Health check failed with status code $response"
-            exit 1
-          fi
-          echo "Health check passed with status code $response"
+          max_retries=5
+          retry_count=0
+          while [ $retry_count -lt $max_retries ]; do
+            response=$(curl -s -o /dev/null -w "%{http_code}" https://news.tadeasfort.cz/health)
+            if [ $response -eq 200 ]; then
+              echo "Health check passed with status code $response"
+              exit 0
+            else
+              echo "Health check failed with status code $response. Attempt $((retry_count + 1)) of $max_retries."
+              sleep 30
+              retry_count=$((retry_count + 1))
+            fi
+          done
+          echo "Health check failed after $max_retries attempts. Last status code: $response"
+          exit 1
       
 
   finish-workflow:
