@@ -46,20 +46,22 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
+          port: ${{ secrets.VPS_PORT }}
           script: |
-            check_service_status() {
-              sudo systemctl is-active --quiet go_news_api.service
-              return $?
-            }
-            if ! check_service_status; then
-              echo "Service is not active. Waiting for 10 seconds before retrying..."
-              sleep 10
-              if ! check_service_status; then
-                echo "Service is still not active after retry. Failing the workflow."
-                exit 1
+            max_retries=5
+            retry_count=0
+            while [ $retry_count -lt $max_retries ]; do
+              if sudo systemctl is-active --quiet go_news_api.service; then
+                echo "Service is active."
+                exit 0
+              else
+                echo "Service is not active. Attempt $((retry_count + 1)) of $max_retries."
+                sleep 30
+                retry_count=$((retry_count + 1))
               fi
-            fi
-            echo "Service is active."
+            done
+            echo "Service failed to become active after $max_retries attempts. Failing the workflow."
+            exit 1
 
   check-endpoints:
     runs-on: ubuntu-latest
