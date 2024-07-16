@@ -6,6 +6,7 @@ A robust and scalable news aggregation API built with Go, leveraging multiple ne
 
 ### Latest Changes
 
+* 📝 Add CHANGELOG.md to document project changes. PR [#18](https://github.com/tadeasf/go_news_api/pull/18) by [@tadeasf](https://github.com/tadeasf).
 * 🔧 (automerge.yml): update automerge workflow to trigger on more events and improve merge commit message. PR [#16](https://github.com/tadeasf/go_news_api/pull/16) by [@tadeasf](https://github.com/tadeasf).
 
 #### Security Fixes
