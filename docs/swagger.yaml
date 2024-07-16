@@ -109,7 +109,7 @@ definitions:
       updatedAt:
         type: string
     type: object
-host: localhost:8824
+host: news.tadeasfort.com
 info:
   contact: {}
   description: A simple news API using Gin and external news services
@@ -307,6 +307,5 @@ paths:
             type: object
       summary: Get trending topics news
 schemes:
-- http
 - https
 swagger: "2.0"

@@ -1,6 +1,5 @@
 {
     "schemes": [
-        "http",
         "https"
     ],
     "swagger": "2.0",
@@ -10,7 +9,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8824",
+    "host": "news.tadeasfort.com",
     "basePath": "/api/v1",
     "paths": {
         "/fetch-trending-categories": {
