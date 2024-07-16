@@ -122,6 +122,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/news-by-keyword": {
+            "get": {
+                "description": "Get news articles for a specific keyword from News API and GNews",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get news by keyword",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Source of news (newsapi or gnews)",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Keyword to search for",
+                        "name": "keyword",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.SwaggerAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/test-postgresql": {
             "get": {
                 "description": "Test if the connection to PostgreSQL is working",
@@ -379,6 +429,12 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/utils.Article"
                     }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "per_page": {
+                    "type": "integer"
                 },
                 "status": {
                     "type": "string"

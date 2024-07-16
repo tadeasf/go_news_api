@@ -81,6 +81,10 @@ definitions:
         items:
           $ref: '#/definitions/utils.Article'
         type: array
+      page:
+        type: integer
+      per_page:
+        type: integer
       status:
         type: string
       totalArticles:
@@ -182,6 +186,39 @@ paths:
               type: string
             type: object
       summary: Migrate database
+  /news-by-keyword:
+    get:
+      description: Get news articles for a specific keyword from News API and GNews
+      parameters:
+      - description: Source of news (newsapi or gnews)
+        in: query
+        name: source
+        type: string
+      - description: Keyword to search for
+        in: query
+        name: keyword
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.SwaggerAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get news by keyword
   /test-postgresql:
     get:
       description: Test if the connection to PostgreSQL is working
