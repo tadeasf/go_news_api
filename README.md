@@ -4,7 +4,7 @@ A robust and scalable news aggregation API built with Go, leveraging multiple ne
 
 ## News && TODO
 
-### Latest changes
+### Latest Changes
 
 ### TODO
 
