@@ -105,7 +105,7 @@ definitions:
       updatedAt:
         type: string
     type: object
-host: localhost:8823
+host: localhost:8824
 info:
   contact: {}
   description: A simple news API using Gin and external news services
@@ -271,4 +271,5 @@ paths:
       summary: Get trending topics news
 schemes:
 - http
+- https
 swagger: "2.0"
