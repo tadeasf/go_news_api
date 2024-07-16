@@ -23,8 +23,7 @@ jobs:
           MANUAL_COMMIT_REF: ${{ github.event.inputs.MANUAL_COMMIT_REF }}
           MANUAL_BASE_REF: ${{ github.event.inputs.MANUAL_BASE_REF }}
         with:
-          PROJECTS_SECRET: ${{ secrets.PAT }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.PAT }}
           LABEL: "todo"
           COMMENT_MARKER: "//"
           CLOSE_ISSUES: true
