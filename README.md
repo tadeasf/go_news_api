@@ -6,6 +6,10 @@ A robust and scalable news aggregation API built with Go, leveraging multiple ne
 
 ### Latest Changes
 
+#### Fixes
+
+* 🔧 (latest-changes.yml): ensure "Latest Changes" section exists in README. PR [#6](https://github.com/tadeasf/go_news_api/pull/6) by [@tadeasf](https://github.com/tadeasf).
+
 ### TODO
 
 - Add endpoints for fetching news by keyword
