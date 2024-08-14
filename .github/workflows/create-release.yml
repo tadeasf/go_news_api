@@ -80,5 +80,7 @@ jobs:
           build/go_news_api_linux_amd64
           build/go_news_api_darwin_amd64
           build/go_news_api_windows_amd64.exe
+          build/go_news_api_darwin_arm64
+          build/go_news_api_linux_arm64
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
