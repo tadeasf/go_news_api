@@ -4,3 +4,5 @@ tmp
 dist
 build.log
 event.json
+go-news-api-continuous-integration.yml
+.history
