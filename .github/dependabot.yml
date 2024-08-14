@@ -14,3 +14,4 @@ updates:
       - "dependencies"
     target-branch: "main"
     rebase-strategy: "auto"
+    
