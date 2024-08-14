@@ -49,6 +49,8 @@ jobs:
         GOOS=linux GOARCH=amd64 go build -v -o build/go_news_api_linux_amd64 .
         GOOS=darwin GOARCH=amd64 go build -v -o build/go_news_api_darwin_amd64 .
         GOOS=windows GOARCH=amd64 go build -v -o build/go_news_api_windows_amd64.exe .
+        GOOS=linux GOARCH=aarch64 go build -v -o build/go_news_api_linux_arm64 .
+        GOOS=darwin GOARCH=aarch64 go build -v -o build/go_news_api_darwin_arm64 .
         
     - name: Bump version and push tag
       id: tag_version
